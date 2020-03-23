@@ -1,4 +1,5 @@
 import sys
+import copy
 
 
 def read_input(inputfilename):
@@ -19,6 +20,8 @@ def read_input(inputfilename):
                 x.remove("\n")
             if "0" in x:
                 x.remove("0")
+            if "0\n" in x:
+                x.remove("0\n")
             clauses.append(x)
 
     return nbvar, nbclauses, clauses
@@ -90,6 +93,7 @@ def DPLL(val, clauses):
         if not cl:
             return None
 
+    clauses1 = copy.deepcopy(clauses)
     literal = clauses[0][0]
     clauses.append([literal])
     sat = DPLL(val, clauses)
@@ -97,6 +101,7 @@ def DPLL(val, clauses):
         return sat
     clauses = clauses[:-1]
 
+    clauses = copy.deepcopy(clauses1)
     literal = str(-int(clauses[0][0]))
     clauses.append([literal])
     sat = DPLL(val, clauses)

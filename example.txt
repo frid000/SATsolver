@@ -1,0 +1,7 @@
+c example from the lectures
+c
+p cnf 3 4
+3 -1 0
+1 2 0
+-2 -3 0
+-1 2 -3 0
