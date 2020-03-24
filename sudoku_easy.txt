@@ -1,15 +1,10 @@
 c Another 9*9 Sudoku puzzle, this time at 'very easy' level
 c Atom pxyn is represented by 81*(x-1)+9*(y-1)+n
-c v CNF: instance is in CNF Format
-c      v nbvar: exact number of variables appearing in the file
-c           v nbclauses: exact number of clauses
 p cnf 729 12024
 21 0 
 40 0 
 59 0 
 89 0 
-
-c v clauses:  sequence of distinct numbers!=0 between -nbvar and nbvar ending with 0 on the same line; not i and -i on the same time; i is pos. variable; -i is negation
 108 0 
 164 0 
 185 0 
