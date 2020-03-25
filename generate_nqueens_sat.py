@@ -14,7 +14,7 @@ def nqueens_sat(n):
     # at most one queen in each row and at most one queen in each column
     for k in range(n):
         for i in range(n):
-            for j in range(i+1,n):
+            for j in range(i+1, n):
                 sat = sat + str(-chess[k][i]) + " " + str(-chess[k][j]) + " 0 \n"
                 sat = sat + str(-chess[i][k]) + " " + str(-chess[j][k]) + " 0 \n"
                 nbclauses += 2
@@ -24,7 +24,7 @@ def nqueens_sat(n):
         for j in range(n):
             for k in range(i+1, n):
                 for l in range(n):
-                    if ((i+j == k+l) or (i-j == k-l)):
+                    if (i+j == k+l) or (i-j == k-l):
                         sat = sat + str(-chess[i][j]) + " " + str(-chess[k][l]) + " 0 \n"
                         nbclauses += 1
 
@@ -36,10 +36,10 @@ def nqueens_sat(n):
 
 def main():
     # n has to be al least 4 (otherwise it doesn't make sense)
-    n = 10
+    n = 14
     cnf = nqueens_sat(n)
 
-    filename = "queens_" + str(n) + ".txt"
+    filename = "test_cases\\queens_" + str(n) + ".txt"
     file = open(filename, "w")
     file.write(cnf)
     file.close()

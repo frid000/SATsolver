@@ -3,20 +3,22 @@ import copy
 import time
 import collections
 
+
 # Read input from a file in Dimacs format specifying a cnf formula
 def read_input(inputfilename):
     inputfile = open(inputfilename, "r")  # open input file
+    clauses = []
 
     for line in inputfile:
-        if line[0] == "p":
+        if line[0] == "p":  # information about the problem
             p_line = line.split(" ")
+            if p_line[1] != "cnf":
+                print("Odd file format. Should be in Dimacs format with \'cnf\' in problem line.")
             nbvar = int(p_line[2])  # get number of variables
             nbclauses = int(p_line[3])  # get number of clauses
-            break
-
-    clauses = []
-    for line in inputfile:
-        if line[0] != "c":  # ignore comments
+        elif line[0] == "c" or line[0] == "\n":  # comment or blank line
+            continue
+        else:  # actual clauses
             x = line.split(" ")
             if "\n" in x:
                 x.remove("\n")
@@ -26,7 +28,10 @@ def read_input(inputfilename):
                 x.remove("0\n")
             clauses.append(x)  # list of lists
 
-    return nbvar, nbclauses, clauses
+    if len(clauses) != nbclauses:
+        print("The number of clauses doesn't match the number of actual clauses.")
+
+    return nbvar, nbclauses, clauses  # return number of variables, number of clauses and actual clauses
 
 
 # Find first unit clause or return None if unit clauses doesn't exists
@@ -68,7 +73,7 @@ def simplify(clauses, literal):
     while i < len(clauses):
         if literal in clauses[i]:  # drop all clauses containing the literal in the same orientation
             clauses.remove(clauses[i])
-            i = i - 1
+            i = i - 1  # necessary as one clause is removed
         elif str(-int(literal)) in clauses[i]:  # retain other clauses but omit negated literal from them
             clauses[i].remove(str(-int(literal)))
         i = i + 1
@@ -129,17 +134,17 @@ def DPLL(val, clauses):
             return None
 
     clauses1 = copy.deepcopy(clauses)
-    literal = clauses[0][0]  # use the first literal in the first clause
-    # literal = find_most_common(clauses)
-    # literal = find_most_common_distinguish(clauses)
-    clauses.insert(0, [literal])
+    literal1 = clauses[0][0]  # use the first literal in the first clause
+    # literal1 = find_most_common(clauses)
+    # literal1 = find_most_common_distinguish(clauses)
+    clauses.insert(0, [literal1])
     sat = DPLL(val, clauses)  # Recursive call
     if sat is not None:
         return sat  # Return solution if found
 
     clauses = copy.deepcopy(clauses1)
-    literal = str(-int(literal))  # opposite value than before
-    clauses.insert(0, [literal])
+    literal1 = str(-int(literal1))  # opposite value than before
+    clauses.insert(0, [literal1])
     sat = DPLL(val, clauses)  # Recursive call
     if sat is not None:
         return sat  # Return solution if found
@@ -149,14 +154,17 @@ def DPLL(val, clauses):
 
 def check_solution(val, clauses):
     for cl in clauses:
-        al_least_one_true = False
-        for i in range(len(cl)):
-            if val[i] is None:
-                val[i] = 0
-            if val[i] > 0:
-                al_least_one_true = True
+        at_least_one_true = False
+        for x in cl:
+            if val[abs(int(x)) - 1] is None:
+                val[abs(int(x)) - 1] = 0
+            elif int(x) > 0 and val[abs(int(x)) - 1] > 0:
+                at_least_one_true = True
                 break
-        if not al_least_one_true:
+            elif int(x) < 0 and val[abs(int(x)) - 1] < 0:
+                at_least_one_true = True
+                break
+        if not at_least_one_true:
             return False
     return True
 
