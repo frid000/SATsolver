@@ -36,7 +36,7 @@ def nqueens_sat(n):
 
 def main():
     # n has to be al least 4 (otherwise it doesn't make sense)
-    n = 14
+    n = 16
     cnf = nqueens_sat(n)
 
     filename = "test_cases\\queens_" + str(n) + ".txt"
