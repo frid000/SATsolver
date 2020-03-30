@@ -1,0 +1,68 @@
+example_lectures.txt 
+The DPLL algorithm took 0.0 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_10.txt 
+The DPLL algorithm took 0.1562023162841797 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_11.txt 
+The DPLL algorithm took 0.17183232307434082 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_12.txt 
+The DPLL algorithm took 0.5003697872161865 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_13.txt 
+The DPLL algorithm took 0.40612196922302246 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_14.txt 
+The DPLL algorithm took 2.4534566402435303 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_15.txt 
+The DPLL algorithm took 2.218531608581543 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_16.txt 
+The DPLL algorithm took 13.49566125869751 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_4.txt 
+The DPLL algorithm took 0.00299072265625 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_5.txt 
+The DPLL algorithm took 0.0 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_6.txt 
+The DPLL algorithm took 0.030873775482177734 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_7.txt 
+The DPLL algorithm took 0.017969131469726562 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_8.txt 
+The DPLL algorithm took 0.1096959114074707 seconds to finish.
+Solution is found and it holds.
+Files are equal
+queens_9.txt 
+The DPLL algorithm took 0.10245347023010254 seconds to finish.
+Solution is found and it holds.
+Files are equal
+sudoku_easy.txt 
+The DPLL algorithm took 4.343395709991455 seconds to finish.
+Solution is found and it holds.
+Files are equal
+sudoku_hard.txt 
+The DPLL algorithm took 4.359833478927612 seconds to finish.
+Solution is found and it holds.
+Files are equal
+sudoku_mini.txt 
+The DPLL algorithm took 0.0 seconds to finish.
+Solution is found and it holds.
+Files are equal

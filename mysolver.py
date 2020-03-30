@@ -66,8 +66,6 @@ Simplify clauses by literal l means to do the following:
 - drop all clauses containing literal l in the same orientation
 - retain all other clauses but omit all literals (not l)
 """
-
-
 def simplify(clauses, literal):
     i = 0
     while i < len(clauses):
@@ -176,7 +174,7 @@ def main():
     nbvar, nbclauses, clauses = read_input(inputfilename)  # read input file
     val = [None] * nbvar  # valuation is a list of size nbvar (number of variables)
     original_clauses = copy.deepcopy(clauses)
-
+	
     start_time = time.time()
 
     sat = DPLL(val, clauses)
