@@ -97,7 +97,11 @@ def select_literal(clauses):
 
 
 # DPLL algorithm from the lectures
-def DPLL(val, clauses):   
+def DPLL(val, clauses, nbdecisions):
+
+    #reached depth of decisions
+    if nbdecisions == 0:
+        return []
 
     # find all unit clauses and simplify CNF
     unit_clauses = find_unit_clauses(clauses)
@@ -136,11 +140,11 @@ def DPLL(val, clauses):
     next_clauses_1.append([literal])
     next_clauses_2.append([-literal])
 
-    res1 = DPLL(next_val_1, next_clauses_1)
+    res1 = DPLL(next_val_1, next_clauses_1, nbdecisions - 1)
     if res1 is not None: # found solution
         return res1
     else: #didnt find solution
-        return DPLL(next_val_2, next_clauses_2)
+        return DPLL(next_val_2, next_clauses_2, nbdecisions - 1)
 
 
 #Checks if the solution holds
@@ -156,6 +160,20 @@ def check_solution(val, clauses):
     return True
 
 
+def DPLL_with_restart(val, clauses):
+    #restart every 100 choices
+    nbdecisions = 100
+
+    while True:
+        sat = DPLL(val, [list(x) for x in clauses], nbdecisions)
+        if sat is None: #No solution found
+            return None
+        if len(sat) > 0: #found solution
+            return sat
+        #increase search depth
+        nbdecisions = nbdecisions * 1.1
+        print("restart ", nbdecisions)
+
 def main():
     inputfilename = sys.argv[1]  # get name of the input file
     outputfilename = sys.argv[2]  # get name of the output file
@@ -168,7 +186,7 @@ def main():
 
     start_time = time.time()
 
-    sat = DPLL(val, clauses)
+    sat = DPLL_with_restart(val, clauses)
     # DPLL algorithm returns satisfiable valuation of the literals if the problem is satisfiable
     # or it returns None if the problem is not satisfiable
 
