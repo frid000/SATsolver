@@ -99,12 +99,8 @@ def select_literal(clauses):
 # DPLL algorithm from the lectures
 def DPLL(val, clauses):
 
-    #print("clauses: ", clauses)
-    #print("valuation: ", val)
-
     # find all unit clauses and simplify CNF
     unit_clauses = find_unit_clauses(clauses)
-    #print('found unit clauses: ', unit_clauses)
     for unit in unit_clauses:
         clauses = simplify(clauses, unit)
         val.append(unit)
@@ -113,12 +109,10 @@ def DPLL(val, clauses):
     if len(unit_clauses) == 0:
         # find pure literals and simplify CNF
         pure_literals = find_pure_literals(clauses)
-        #print('found pure literalts: ', pure_literals)
         for pure in pure_literals:
             clauses = simplify(clauses, pure)
             val.append(pure)
 
-    #print("simplyfied clauses: ", clauses)
 
     ## Goaltest
     
@@ -169,7 +163,7 @@ def main():
 
     nbvar, nbclauses, clauses = read_input(inputfilename)  # read input file
     val = []# valuation is a list of all assigned values
-    original_clauses = copy.deepcopy(clauses)
+    original_clauses = [list(x) for x in clauses]
 
     start_time = time.time()
 
