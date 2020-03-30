@@ -1,3 +1,5 @@
+c optimal is 9 colours
+c
 p edge 1557 65390
 e 4 5
 e 4 6

@@ -1,3 +1,5 @@
+c optimal is 4 colours
+c
 p edge 11 20
 e 1 2
 e 1 4

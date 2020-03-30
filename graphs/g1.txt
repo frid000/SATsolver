@@ -1,3 +1,5 @@
+c optimal is 8 colours
+c
 p col 250 867
 e 9 6
 e 10 5
