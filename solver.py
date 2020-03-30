@@ -1,5 +1,4 @@
 import sys
-import copy
 import time
 import collections
 import random
@@ -135,10 +134,11 @@ def DPLL(val, clauses):
     # choose a literal from the CNF (first one)
     literal = select_literal(clauses)
 
-    next_clauses_1 = copy.deepcopy(clauses)
-    next_clauses_2 = copy.deepcopy(clauses)
-    next_val_1 = copy.deepcopy(val)
-    next_val_2 = copy.deepcopy(val)
+    # Performance issue -> replace deepcopy with [list(x) for x in clauses]
+    next_clauses_1 = [list(x) for x in clauses]
+    next_clauses_2 = [list(x) for x in clauses]
+    next_val_1 = val.copy()
+    next_val_2 = val.copy()
 
     next_clauses_1.append([literal])
     next_clauses_2.append([-literal])
@@ -152,8 +152,8 @@ def DPLL(val, clauses):
 
 #Checks if the solution holds
 def check_solution(val, clauses):
-    found = False
     for cl in clauses:
+        found = False
         for x in cl:
             if x in val:
                 found = True
