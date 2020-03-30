@@ -97,7 +97,7 @@ def select_literal(clauses):
 
 
 # DPLL algorithm from the lectures
-def DPLL(val, clauses):
+def DPLL(val, clauses):   
 
     # find all unit clauses and simplify CNF
     unit_clauses = find_unit_clauses(clauses)
@@ -105,25 +105,24 @@ def DPLL(val, clauses):
         clauses = simplify(clauses, unit)
         val.append(unit)
 
+        
+    # Check for empty clause (disjunction of nothing) is False -> fail
+    for cl in clauses:
+        if not cl:
+            return None
+
     #Either do unit_clause-simplification OR literal-simplification
-    if len(unit_clauses) == 0:
-        # find pure literals and simplify CNF
-        pure_literals = find_pure_literals(clauses)
-        for pure in pure_literals:
-            clauses = simplify(clauses, pure)
-            val.append(pure)
+    #if len(unit_clauses) == 0:
+    # find pure literals and simplify CNF
+    pure_literals = find_pure_literals(clauses)
+    for pure in pure_literals:
+        clauses = simplify(clauses, pure)
+        val.append(pure)
 
-
-    ## Goaltest
-    
     # empty conjunction is True -> the problem is satisfiable and we are done
     if not clauses: 
         return val  # Return satisfiable valuation
 
-    # empty clause (disjunction of nothing) is False -> fail
-    for cl in clauses:
-        if not cl:
-            return None
     
     # choose a literal from the CNF (first one)
     literal = select_literal(clauses)
@@ -162,8 +161,10 @@ def main():
     outputfilename = sys.argv[2]  # get name of the output file
 
     nbvar, nbclauses, clauses = read_input(inputfilename)  # read input file
-    val = []# valuation is a list of all assigned values
+
+
     original_clauses = [list(x) for x in clauses]
+    val = []# valuation is a list of all assigned values
 
     start_time = time.time()
 
