@@ -1,7 +1,7 @@
 import sys
-import copy
 import time
 import collections
+import random
 
 
 # Read input from a file in Dimacs format specifying a cnf formula
@@ -26,143 +26,132 @@ def read_input(inputfilename):
                 x.remove("0")
             if "0\n" in x:
                 x.remove("0\n")
-            clauses.append(x)  # list of lists
+            if "" in x:
+                x.remove("")
+            clauses.append(list(map(int, x)))  # list of lists of integers
 
     if len(clauses) != nbclauses:
         print("The number of clauses doesn't match the number of actual clauses.")
-
+    
     return nbvar, nbclauses, clauses  # return number of variables, number of clauses and actual clauses
 
 
-# Find first unit clause or return None if unit clauses doesn't exists
+# Find all unit clauses or return None if unit clauses doesn't exists
 # Unit clauses is a clause that exists of a single literal
-def find_unit_clause(clauses):
+# returns the variables of the unit clauses
+def find_unit_clauses(clauses):
+    unit_clauses = []
     for cl in clauses:
         if len(cl) == 1:
-            return cl[0]
-    return None
+            unit_clauses.append(cl[0])
+    return list(dict.fromkeys(unit_clauses)) #remove duplicates
 
 
-# Find pure literal or return None if pure literal doesn't exists
+# clauses is a list of list: [[3,-1],[1,2],[-1,2,-3]]
+
+# Find all pure literals
 # A pure literal is a literal that occurs either only unnegated or only negated within the whole CNF
-def find_pure_literal(val, clauses):
-    for i in range(1, len(val) + 1):
-        occurs_pos = False
-        occurs_neg = False
-        for cl in clauses:
-            if str(i) in cl:
-                occurs_pos = True
-            if str(-i) in cl:
-                occurs_neg = True
-        if occurs_pos and (not occurs_neg):
-            return str(i)
-        elif (not occurs_pos) and occurs_neg:
-            return str(-i)
-    return None
+# returns all pure literals
+def find_pure_literals(clauses):
+    positive = set()
+    negative = set()
+    result = []
+    for clause in clauses:
+        for x in clause:
+            if x < 0:
+                negative.add(-x)
+            else:
+                positive.add(x)
+    # get all variables that either occur positive or negative
+    pures = negative.symmetric_difference(positive)
+
+    for p in pures.intersection(negative):
+        result.append(-p)
+    for p in pures.intersection(positive):
+        result.append(p)
+
+    return result
 
 
-"""
-Simplify clauses by literal l means to do the following:
-- drop all clauses containing literal l in the same orientation
-- retain all other clauses but omit all literals (not l)
-"""
+#Simplify clauses by literal l means to do the following:
+#- drop all clauses containing literal l in the same orientation
+#- retain all other clauses but omit all literals (not l)
 def simplify(clauses, literal):
     i = 0
     while i < len(clauses):
         if literal in clauses[i]:  # drop all clauses containing the literal in the same orientation
             clauses.remove(clauses[i])
             i = i - 1  # necessary as one clause is removed
-        elif str(-int(literal)) in clauses[i]:  # retain other clauses but omit negated literal from them
-            clauses[i].remove(str(-int(literal)))
+        elif -literal in clauses[i]:  # retain other clauses but omit negated literal from them
+            clauses[i].remove(-literal)
         i = i + 1
+        
     return clauses
 
 
-# Find the variable that occurs the most (DON'T distinguish between negative and positive literals)
-def find_most_common(clauses):
-    to_list = []
-    for cl in clauses:
-        for l in cl:
-            to_list.append(abs(int(l)))
-    most_common = collections.Counter(to_list).most_common(1)[0][0]
-    return str(most_common)
+# select the next literal
+def select_literal(clauses):
+    #return clauses[0][0]
+    return random.choice(random.choice(clauses))
 
-
-# Find the variable that occurs the most (DO distinguish between negative and positive literals)
-def find_most_common_distinguish(clauses):
-    to_list = []
-    for cl in clauses:
-        for l in cl:
-            to_list.append(int(l))
-    most_common = collections.Counter(to_list).most_common(1)[0][0]
-    return str(most_common)
 
 
 # DPLL algorithm from the lectures
-def DPLL(val, clauses):
-    l1 = find_unit_clause(clauses)  # find a unit clause
-    l2 = find_pure_literal(val, clauses)  # find a pure literal
-    if l1 is not None:
-        literal = l1
-    elif l2 is not None:
-        literal = l2
-    else:
-        literal = None
+def DPLL(val, clauses):   
 
-    while literal is not None:  # simplify cnf unit there are no more unit clauses or pure literals
-        clauses = simplify(clauses, literal)
-        l = int(literal)
-        val[abs(l) - 1] = l  # valuation of literals
-        # If l > 0 then l is a positive literal; if l < 0 then l is a negative literal
+    # find all unit clauses and simplify CNF
+    unit_clauses = find_unit_clauses(clauses)
+    for unit in unit_clauses:
+        clauses = simplify(clauses, unit)
+        val.append(unit)
 
-        l1 = find_unit_clause(clauses)
-        l2 = find_pure_literal(val, clauses)
-        if l1 is not None:
-            literal = l1
-        elif l2 is not None:
-            literal = l2
-        else:
-            literal = None
-
-    if not clauses:  # empty conjunction is True -> the problem is satisfiable and we are done
-        return val  # Return satisfiable valuation
-
+        
+    # Check for empty clause (disjunction of nothing) is False -> fail
     for cl in clauses:
-        if not cl:  # empty clause (disjunction of nothing) is False -> fail
+        if not cl:
             return None
 
-    clauses1 = copy.deepcopy(clauses)
-    literal1 = clauses[0][0]  # use the first literal in the first clause
-    # literal1 = find_most_common(clauses)
-    # literal1 = find_most_common_distinguish(clauses)
-    clauses.insert(0, [literal1])
-    sat = DPLL(val, clauses)  # Recursive call
-    if sat is not None:
-        return sat  # Return solution if found
+    #Either do unit_clause-simplification OR literal-simplification
+    #if len(unit_clauses) == 0:
+    # find pure literals and simplify CNF
+    pure_literals = find_pure_literals(clauses)
+    for pure in pure_literals:
+        clauses = simplify(clauses, pure)
+        val.append(pure)
 
-    clauses = copy.deepcopy(clauses1)
-    literal1 = str(-int(literal1))  # opposite value than before
-    clauses.insert(0, [literal1])
-    sat = DPLL(val, clauses)  # Recursive call
-    if sat is not None:
-        return sat  # Return solution if found
+    # empty conjunction is True -> the problem is satisfiable and we are done
+    if not clauses: 
+        return val  # Return satisfiable valuation
 
-    return None  # Fail because we can't find solution if one literal can't be True and can't be False (not satisfiable)
+    
+    # choose a literal from the CNF (first one)
+    literal = select_literal(clauses)
+
+    # Performance issue -> replace deepcopy with [list(x) for x in clauses]
+    next_clauses_1 = [list(x) for x in clauses]
+    next_clauses_2 = [list(x) for x in clauses]
+    next_val_1 = val.copy()
+    next_val_2 = val.copy()
+
+    next_clauses_1.append([literal])
+    next_clauses_2.append([-literal])
+
+    res1 = DPLL(next_val_1, next_clauses_1)
+    if res1 is not None: # found solution
+        return res1
+    else: #didnt find solution
+        return DPLL(next_val_2, next_clauses_2)
 
 
+#Checks if the solution holds
 def check_solution(val, clauses):
     for cl in clauses:
-        at_least_one_true = False
+        found = False
         for x in cl:
-            if val[abs(int(x)) - 1] is None:
-                val[abs(int(x)) - 1] = 0
-            elif int(x) > 0 and val[abs(int(x)) - 1] > 0:
-                at_least_one_true = True
-                break
-            elif int(x) < 0 and val[abs(int(x)) - 1] < 0:
-                at_least_one_true = True
-                break
-        if not at_least_one_true:
+            if x in val:
+                found = True
+                break; #break for-loop for current clause
+        if not found:
             return False
     return True
 
@@ -172,9 +161,11 @@ def main():
     outputfilename = sys.argv[2]  # get name of the output file
 
     nbvar, nbclauses, clauses = read_input(inputfilename)  # read input file
-    val = [None] * nbvar  # valuation is a list of size nbvar (number of variables)
-    original_clauses = copy.deepcopy(clauses)
-	
+
+
+    original_clauses = [list(x) for x in clauses]
+    val = []# valuation is a list of all assigned values
+
     start_time = time.time()
 
     sat = DPLL(val, clauses)
