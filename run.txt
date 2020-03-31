@@ -6,67 +6,119 @@ example_unsatisifiable.txt
 The DPLL algorithm took 0.0 seconds to finish.
 Not satisfiable.
 Files are equal
+g2_3-colouring.txt 
+The DPLL algorithm took 0.01799750328063965 seconds to finish.
+Not satisfiable.
+Files are equal
+g2_4-colouring.txt 
+The DPLL algorithm took 0.00099945068359375 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+g3_10-colouring.txt 
+The DPLL algorithm took 8.65103006362915 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+g3_11-colouring.txt 
+The DPLL algorithm took 10.861000299453735 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+g3_7-colouring.txt 
+The DPLL algorithm took 8.28102993965149 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+g3_8-colouring.txt 
+The DPLL algorithm took 4.828999280929565 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+g3_9-colouring.txt 
+The DPLL algorithm took 6.299034118652344 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
 queens_10.txt 
-The DPLL algorithm took 0.41489148139953613 seconds to finish.
+The DPLL algorithm took 0.2540311813354492 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_11.txt 
-The DPLL algorithm took 0.32137370109558105 seconds to finish.
+The DPLL algorithm took 0.11502408981323242 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_12.txt 
-The DPLL algorithm took 0.8491311073303223 seconds to finish.
+The DPLL algorithm took 0.4999709129333496 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_13.txt 
-The DPLL algorithm took 9.258350372314453 seconds to finish.
+The DPLL algorithm took 0.7369801998138428 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_14.txt 
-The DPLL algorithm took 4.685518503189087 seconds to finish.
+The DPLL algorithm took 0.6379721164703369 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_15.txt 
-The DPLL algorithm took 5.295919179916382 seconds to finish.
+The DPLL algorithm took 3.9239730834960938 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_16.txt 
-The DPLL algorithm took 10.978005647659302 seconds to finish.
+The DPLL algorithm took 18.604480743408203 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+queens_17.txt 
+The DPLL algorithm took 2.459530830383301 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+queens_18.txt 
+The DPLL algorithm took 2.3330016136169434 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+queens_19.txt 
+The DPLL algorithm took 23.53002953529358 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+queens_20.txt 
+The DPLL algorithm took 13.135029792785645 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+queens_21.txt 
+The DPLL algorithm took 65.69801640510559 seconds to finish.
+Solution is found and it holds.
+Files contain unequal assignments!
+queens_22.txt 
+The DPLL algorithm took 22.743666172027588 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_4.txt 
-The DPLL algorithm took 0.000997304916381836 seconds to finish.
+The DPLL algorithm took 0.0009999275207519531 seconds to finish.
 Solution is found and it holds.
 Files are equal
 queens_5.txt 
-The DPLL algorithm took 0.0009968280792236328 seconds to finish.
+The DPLL algorithm took 0.003998994827270508 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_6.txt 
-The DPLL algorithm took 0.004985809326171875 seconds to finish.
+The DPLL algorithm took 0.013998270034790039 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_7.txt 
-The DPLL algorithm took 0.026927709579467773 seconds to finish.
+The DPLL algorithm took 0.013988733291625977 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_8.txt 
-The DPLL algorithm took 0.09673738479614258 seconds to finish.
+The DPLL algorithm took 0.020991086959838867 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 queens_9.txt 
-The DPLL algorithm took 0.037874460220336914 seconds to finish.
+The DPLL algorithm took 0.048010826110839844 seconds to finish.
 Solution is found and it holds.
 Files contain unequal assignments!
 sudoku_easy.txt 
-The DPLL algorithm took 3.1666183471679688 seconds to finish.
+The DPLL algorithm took 2.0753374099731445 seconds to finish.
 Solution is found and it holds.
 Files are equal
 sudoku_hard.txt 
-The DPLL algorithm took 2.16990327835083 seconds to finish.
+The DPLL algorithm took 2.140022039413452 seconds to finish.
 Solution is found and it holds.
 Files are equal
 sudoku_mini.txt 
-The DPLL algorithm took 0.015620946884155273 seconds to finish.
+The DPLL algorithm took 0.003998994827270508 seconds to finish.
 Solution is found and it holds.
 Files are equal
