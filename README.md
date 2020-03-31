@@ -33,5 +33,4 @@ https://baldur.iti.kit.edu/sat/files/2016/l05.pdf
 
 # Authors
 
-Jan Fekonja
-Florentin Wieser
+Jan Fekonja, Florentin Wieser
