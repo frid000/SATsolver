@@ -40,7 +40,7 @@ def main():
         print("The number of edges doesn't match the number of actual edges.")
 
     # Number of colours
-    k = 20
+    k = 30
 
     sat = ""
     nbvar = k * nb_nodes
