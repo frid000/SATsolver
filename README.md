@@ -18,3 +18,8 @@ run.bat runs the solver for each problem in /test_cases and writes the results i
 # Run the program
 
 python solver.py /test_cases/queens_21.txt result.txt
+
+# Possible further improvements
+
+The following slides provide further ideas to improve the performance. One which could be implemented with limited effort is the restart of the search after some decisions.
+https://baldur.iti.kit.edu/sat/files/2016/l05.pdf
